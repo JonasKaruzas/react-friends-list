@@ -7,12 +7,12 @@ import Button from 'react-bootstrap/Button';
 
 export const Friend = (props) => {
   return (<>
-        <Card border="secondary" style={{ width: '18rem' }}>
+        <Card border="secondary">
         <Card.Header>
           <Container fluid className='g-0'>
             <Row >
               <Col className='d-flex align-items-center'>ID: {props.data.id}</Col>
-              <Col><Button variant='danger' size='sm' className="float-end">Delete</Button></Col>
+              <Col><Button variant='outline-danger' size='sm' className="float-end">Delete</Button></Col>
             </Row>
           </Container>
           </Card.Header>
@@ -20,7 +20,7 @@ export const Friend = (props) => {
           <Card.Title>{props.data.firstName} {props.data.lastName}</Card.Title>
           <Card.Text>
           <div>Age: {props.data.age}</div>
-          <div>City: {props.data.city}</div>
+          <div>From: {props.data.city}</div>
           </Card.Text>
         </Card.Body>
       </Card>

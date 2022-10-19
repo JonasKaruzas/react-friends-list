@@ -1,4 +1,5 @@
 import { Friend } from "./Friend";
+import { AddFriendForm } from "./AddFriendForm";
 
 const friends = [
   { id: 1, firstName: "John", lastName: "Smith", age: 32, city: "Kaunas" },
@@ -9,6 +10,7 @@ const friends = [
 function App() {
   return (
     <>
+      <AddFriendForm />
       {friends.map((friend) => (
         <Friend data={friend} key={friend.id} />
       ))}

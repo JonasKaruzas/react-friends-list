@@ -6,23 +6,21 @@ import Button from 'react-bootstrap/Button';
 
 
 export const Friend = (props) => {
-  return (<>
+  return (
         <Card border="secondary">
         <Card.Header>
           <Container fluid className='g-0'>
             <Row >
               <Col className='d-flex align-items-center'>ID: {props.data.id}</Col>
-              <Col><Button variant='outline-danger' size='sm' className="float-end">Delete</Button></Col>
+              <Col><Button onClick={props.deleteHandler} variant='outline-danger' size='sm' className="float-end">Delete</Button></Col>
             </Row>
           </Container>
           </Card.Header>
         <Card.Body>
           <Card.Title>{props.data.firstName} {props.data.lastName}</Card.Title>
-          <Card.Text>
-          <div>Age: {props.data.age}</div>
-          <div>From: {props.data.city}</div>
-          </Card.Text>
+          <Card.Text className='my-0'>Age: {props.data.age}</Card.Text>
+          <Card.Text>From: {props.data.city}</Card.Text>
         </Card.Body>
       </Card>
-    </>)
+    )
 }

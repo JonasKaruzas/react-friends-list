@@ -12,22 +12,46 @@ function App() {
     { id: 3, firstName: "Thomas", lastName: "Muiller", age: 33, city: "Vilnius" },
   ]);
 
+  const [form, setForm] = useState({
+    id: "",
+    firstName: "",
+    lastName: "",
+    age: "",
+    city: "",
+  });
+
   function deleteHandler(id) {
     setFriends(friends.filter((friend) => friend.id !== id));
+  }
+
+  function formHandler(e) {
+    setForm({ ...form, [e.target.id]: e.target.value });
+  }
+
+  function emptyForm() {
+    const emptyForm = {};
+    Object.keys(form).forEach((key) => (emptyForm[key] = ""));
+    setForm(emptyForm);
+  }
+
+  function formSubmitHandler(e) {
+    e.preventDefault();
+    setFriends([...friends, { ...form, id: new Date().getTime() }]);
+    emptyForm();
   }
 
   return (
     <Container>
       <Row className="d-flex justify-content-center">
         <Col className="my-3 col-12 col-sm-8">
-          <AddFriendForm />
+          <AddFriendForm onChange={formHandler} formValue={form} onSubmit={formSubmitHandler} />
         </Col>
       </Row>
 
       <Row className="d-flex justify-content-center">
         {friends.map((friend) => (
-          <Col className="my-1 col-12 col-sm-6 col-lg-3">
-            <Friend data={friend} key={friend.id} onDelete={deleteHandler} />
+          <Col key={friend.id} className="my-1 col-12 col-sm-6 col-lg-3">
+            <Friend data={friend} onDelete={deleteHandler} />
           </Col>
         ))}
       </Row>

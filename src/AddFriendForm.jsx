@@ -4,30 +4,30 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-export const AddFriendForm = () => {
+export const AddFriendForm = (props) => {
   return (
-    <Form>
+    <Form onSubmit={props.onSubmit}>
       <Row>
         <Col>
-      <FloatingLabel controlId="floatingInput" label="Name" className="mb-3">
-        <Form.Control type="text" placeholder="Jonas" />
+      <FloatingLabel controlId="firstName" label="Name" className="mb-3">
+        <Form.Control type="text" placeholder="Jonas" onChange={props.onChange} value={props.formValue.firstName}/>
       </FloatingLabel>
         </Col>
         <Col>
-      <FloatingLabel controlId="floatingInput" label="Last name" className="mb-3">
-        <Form.Control type="text" placeholder="Jonaitis" />
+      <FloatingLabel controlId="lastName" label="Last name" className="mb-3">
+        <Form.Control type="text" placeholder="Jonaitis" onChange={props.onChange} value={props.formValue.lastName}/>
       </FloatingLabel>
         </Col>
       </Row>
       <Row>
         <Col>
-      <FloatingLabel controlId="floatingInput" label="Age" className="mb-3">
-        <Form.Control type="text" placeholder="33" />
+      <FloatingLabel controlId="age" label="Age" className="mb-3">
+        <Form.Control type="number" placeholder="33" onChange={props.onChange} value={props.formValue.age}/>
       </FloatingLabel>
         </Col>
         <Col>
-      <FloatingLabel controlId="floatingInput" label="City" className="mb-3">
-        <Form.Control type="text" placeholder="Vilnius" />
+      <FloatingLabel controlId="city" label="City" className="mb-3">
+        <Form.Control type="text" placeholder="Vilnius" onChange={props.onChange} value={props.formValue.city}/>
       </FloatingLabel>
         </Col>
       </Row>

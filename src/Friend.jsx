@@ -12,7 +12,7 @@ export const Friend = (props) => {
           <Container fluid className='g-0'>
             <Row >
               <Col className='d-flex align-items-center'>ID: {props.data.id}</Col>
-              <Col><Button variant='outline-danger' size='sm' className="float-end">Delete</Button></Col>
+              <Col><Button onClick={() => props.onDelete(props.data.id)} variant='outline-danger' size='sm' className="float-end">Delete</Button></Col>
             </Row>
           </Container>
           </Card.Header>

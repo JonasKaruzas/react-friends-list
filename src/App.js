@@ -17,7 +17,7 @@ class App extends React.Component {
         { id: 3, firstName: "Thomas", lastName: "Muiller", age: 33, city: "Vilnius" },
       ],
       inputForm: {
-        id: 5,
+        id: new Date().getTime(),
         firstName: null,
         lastName: null,
         age: null,
@@ -36,7 +36,12 @@ class App extends React.Component {
   addFriend(e) {
     e.preventDefault();
     console.log(this.state);
-    // this.setState((state) => console.log(...state.friends));
+
+    const friendsArr = [...this.state.friends, this.state.inputForm];
+    console.log(friendsArr);
+
+    this.setState((this.state.friends = friendsArr));
+    console.log(this.state);
   }
 
   handleChange(e) {

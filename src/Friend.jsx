@@ -18,10 +18,8 @@ export const Friend = (props) => {
           </Card.Header>
         <Card.Body>
           <Card.Title>{props.data.firstName} {props.data.lastName}</Card.Title>
-          <Card.Text>
-          <div>Age: {props.data.age}</div>
-          <div>From: {props.data.city}</div>
-          </Card.Text>
+          <Card.Text>Age: {props.data.age}</Card.Text>
+          <Card.Text>From: {props.data.city}</Card.Text>
         </Card.Body>
       </Card>
     </>)

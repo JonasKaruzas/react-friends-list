@@ -1,5 +1,6 @@
 import { Friend } from "./Friend";
 import { AddFriendForm } from "./AddFriendForm";
+import { EditModal } from "./EditModal";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -22,6 +23,11 @@ function App() {
     setFriends(friends.filter((friend) => friend.id !== id));
   }
 
+  function editHandler(e) {
+    console.log("Editinam");
+    console.log(e);
+  }
+
   function onSubmitHandler(formData) {
     setFriends([...friends, { ...formData, id: new Date().getTime() }]);
   }
@@ -29,7 +35,7 @@ function App() {
   function createFriendCards() {
     return friends.map((friend) => (
       <Col key={friend.id} className="my-1 col-12 col-sm-6 col-lg-3">
-        <Friend data={friend} onDelete={deleteHandler} />
+        <Friend data={friend} onDelete={deleteHandler} onEdit={editHandler} />
       </Col>
     ));
   }
@@ -42,7 +48,7 @@ function App() {
     <Container>
       <Row className="d-flex justify-content-center">
         <Col className="my-3 col-12 col-sm-8">
-          <AddFriendForm onSubmitHandler={(form) => onSubmitHandler(form)} />
+          <AddFriendForm btnText="Add friend" onSubmitHandler={(form) => onSubmitHandler(form)} />
         </Col>
       </Row>
 

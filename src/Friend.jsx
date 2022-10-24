@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-
+import { EditModal } from "./EditModal";
 
 export const Friend = (props) => {
   return (<>
@@ -12,7 +12,7 @@ export const Friend = (props) => {
           <Container fluid className='g-0'>
             <Row >
               <Col className='d-flex align-items-center'>ID: {props.data.id}</Col>
-              <Col className='col-sm-auto'><Button onClick={() => props.onDelete(props.data.id)} variant='outline-danger' size='sm' className="float-end">X</Button></Col>
+              <Col className='col-sm-auto'><EditModal onEdit={() => props.onEdit(props.data.id)}/><Button onClick={() => props.onDelete(props.data.id)} variant='outline-danger' size='sm' className="float-end">X</Button></Col>
             </Row>
           </Container>
           </Card.Header>

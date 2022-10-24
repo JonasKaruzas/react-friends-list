@@ -55,7 +55,7 @@ export const AddFriendForm = (props) => {
       </Row>
       <div className='d-grid'>
       <Button variant="warning" type="submit">
-        Add friend
+        {props.btnText}
       </Button>
       </div>
     </Form>

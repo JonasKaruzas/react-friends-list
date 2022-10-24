@@ -5,16 +5,14 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useState, useEffect } from "react";
 
-function NoFriends() {
-  return <Col className="text-center">Sorry... no friends in this list</Col>;
-}
-
 function App() {
-  const [friends, setFriends] = useState(() => {
+  function getFriendListFromLocalstorage() {
     const savedFriends = localStorage.getItem("FriendsList");
     const initialValue = JSON.parse(savedFriends);
-    return initialValue || "";
-  });
+    return initialValue || [];
+  }
+
+  const [friends, setFriends] = useState(getFriendListFromLocalstorage());
 
   useEffect(() => {
     localStorage.setItem("FriendsList", JSON.stringify(friends));
@@ -24,16 +22,20 @@ function App() {
     setFriends(friends.filter((friend) => friend.id !== id));
   }
 
-  function onSubmitHandler(form) {
-    setFriends([...friends, { ...form, id: new Date().getTime() }]);
+  function onSubmitHandler(formData) {
+    setFriends([...friends, { ...formData, id: new Date().getTime() }]);
   }
 
-  function ShowFriends() {
+  function createFriendCards() {
     return friends.map((friend) => (
       <Col key={friend.id} className="my-1 col-12 col-sm-6 col-lg-3">
         <Friend data={friend} onDelete={deleteHandler} />
       </Col>
     ));
+  }
+
+  function noFriendsMsg() {
+    return <Col className="text-center">Sorry... no friends in this list</Col>;
   }
 
   return (
@@ -44,7 +46,7 @@ function App() {
         </Col>
       </Row>
 
-      <Row className="d-flex justify-content-center">{friends.length > 0 ? <ShowFriends /> : <NoFriends />}</Row>
+      <Row className="d-flex justify-content-center">{friends.length > 0 ? createFriendCards() : noFriendsMsg()}</Row>
     </Container>
   );
 }

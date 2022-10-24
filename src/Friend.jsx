@@ -12,13 +12,13 @@ export const Friend = (props) => {
           <Container fluid className='g-0'>
             <Row >
               <Col className='d-flex align-items-center'>ID: {props.data.id}</Col>
-              <Col><Button onClick={() => props.onDelete(props.data.id)} variant='outline-danger' size='sm' className="float-end">Delete</Button></Col>
+              <Col className='col-sm-auto'><Button onClick={() => props.onDelete(props.data.id)} variant='outline-danger' size='sm' className="float-end">X</Button></Col>
             </Row>
           </Container>
           </Card.Header>
         <Card.Body>
           <Card.Title>{props.data.firstName} {props.data.lastName}</Card.Title>
-          <Card.Text>Age: {props.data.age}</Card.Text>
+          <Card.Text className='mb-0'>Age: {props.data.age}</Card.Text>
           <Card.Text>From: {props.data.city}</Card.Text>
         </Card.Body>
       </Card>

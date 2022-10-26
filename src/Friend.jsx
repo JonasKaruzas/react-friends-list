@@ -12,7 +12,12 @@ export const Friend = (props) => {
           <Container fluid className='g-0'>
             <Row >
               <Col className='d-flex align-items-center'>ID: {props.data.id}</Col>
-              <Col className='col-sm-auto'><EditModal onEdit={() => props.onEdit(props.data.id)}/><Button onClick={() => props.onDelete(props.data.id)} variant='outline-danger' size='sm' className="float-end">X</Button></Col>
+              <Col className='col-sm-auto'>
+                <EditModal 
+                  onEditSubmitHandler={props.onEditSubmitHandler} 
+                  editFormState={props.editFormState} 
+                  onEdit={() => props.onEdit(props.data.id)}/>
+                <Button onClick={() => props.onDelete(props.data.id)} variant='outline-danger' size='sm' className="float-end">X</Button></Col>
             </Row>
           </Container>
           </Card.Header>

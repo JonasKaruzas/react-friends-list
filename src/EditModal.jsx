@@ -23,7 +23,7 @@ export function EditModal(props) {
           <Modal.Title>Edit your friends info</Modal.Title>
         </Modal.Header>
         <Modal.Body>         
-           <AddFriendForm btnText='Save'/>
+           <AddFriendForm btnText='Save' onSubmitHandler={props.onEditSubmitHandler} editFormState={props.editFormState} closeModalHandler={handleClose}/>
           </Modal.Body>
       </Modal>
     </>

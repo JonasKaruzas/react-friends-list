@@ -1,6 +1,5 @@
 import { Friend } from "./Friend";
 import { AddFriendForm } from "./AddFriendForm";
-import { EditModal } from "./EditModal";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -14,6 +13,7 @@ function App() {
   }
 
   const [friends, setFriends] = useState(getFriendListFromLocalstorage());
+  const [editFriendState, setEditFriendState] = useState({});
 
   useEffect(() => {
     localStorage.setItem("FriendsList", JSON.stringify(friends));
@@ -23,19 +23,30 @@ function App() {
     setFriends(friends.filter((friend) => friend.id !== id));
   }
 
-  function editHandler(e) {
-    console.log("Editinam");
-    console.log(e);
+  function editHandler(id) {
+    setEditFriendState(friends.filter((friend) => friend.id === id)[0]);
   }
 
   function onSubmitHandler(formData) {
     setFriends([...friends, { ...formData, id: new Date().getTime() }]);
   }
 
+  function onEditSubmitHandler(editableFriendData) {
+    const newFriendsState = [...friends];
+
+    const foundEditableFriend = newFriendsState.find((friend) => friend.id === editableFriendData.id);
+    foundEditableFriend.firstName = editableFriendData.firstName;
+    foundEditableFriend.lastName = editableFriendData.lastName;
+    foundEditableFriend.age = editableFriendData.age;
+    foundEditableFriend.city = editableFriendData.city;
+
+    setFriends(newFriendsState);
+  }
+
   function createFriendCards() {
     return friends.map((friend) => (
       <Col key={friend.id} className="my-1 col-12 col-sm-6 col-lg-3">
-        <Friend data={friend} onDelete={deleteHandler} onEdit={editHandler} />
+        <Friend onEditSubmitHandler={onEditSubmitHandler} editFormState={editFriendState} data={friend} onDelete={deleteHandler} onEdit={editHandler} />
       </Col>
     ));
   }

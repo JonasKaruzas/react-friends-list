@@ -8,12 +8,15 @@ import { useState } from 'react';
 
 export const AddFriendForm = (props) => {
   
-  const initialFormState = {
-    firstName: "",
-    lastName: "",
-    age: "",
-    city: "",
-  };
+  const initialFormState = (
+    props.editFormState ?
+    props.editFormState :
+    { firstName: "",
+      lastName: "",
+      age: "",
+      city: "",
+    }
+  );
 
   const [form, setForm] = useState({ ...initialFormState });
 
@@ -24,6 +27,7 @@ export const AddFriendForm = (props) => {
   function onSubmit(e) {
     e.preventDefault();
     props.onSubmitHandler(form)
+    props.closeModalHandler && props.closeModalHandler();
     setForm({ ...initialFormState });
   }
 

@@ -32,28 +32,20 @@ function App() {
   }
 
   function onEditSubmitHandler(editableFriendData) {
+    const indexOfEditableFriend = friends.findIndex((friend) => friend.id === editableFriendData.id);
     const newFriendsState = [...friends];
-
-    const foundEditableFriend = newFriendsState.find((friend) => friend.id === editableFriendData.id);
-    foundEditableFriend.firstName = editableFriendData.firstName;
-    foundEditableFriend.lastName = editableFriendData.lastName;
-    foundEditableFriend.age = editableFriendData.age;
-    foundEditableFriend.city = editableFriendData.city;
+    newFriendsState[indexOfEditableFriend] = editableFriendData;
 
     setFriends(newFriendsState);
   }
 
-  function createFriendCards() {
-    return friends.map((friend) => (
-      <Col key={friend.id} className="my-1 col-12 col-sm-6 col-lg-3">
-        <Friend onEditSubmitHandler={onEditSubmitHandler} editFormState={editFriendState} data={friend} onDelete={deleteHandler} onEdit={editHandler} />
-      </Col>
-    ));
-  }
+  const createFriendCards = friends.map((friend) => (
+    <Col key={friend.id} className="my-1 col-12 col-sm-6 col-lg-3">
+      <Friend onEditSubmitHandler={onEditSubmitHandler} editFormState={editFriendState} data={friend} onDelete={deleteHandler} onEdit={editHandler} />
+    </Col>
+  ));
 
-  function noFriendsMsg() {
-    return <Col className="text-center">Sorry... no friends in this list</Col>;
-  }
+  const noFriendsMsg = <Col className="text-center">Sorry... no friends in this list</Col>;
 
   return (
     <Container>
@@ -63,7 +55,7 @@ function App() {
         </Col>
       </Row>
 
-      <Row className="d-flex justify-content-center">{friends.length > 0 ? createFriendCards() : noFriendsMsg()}</Row>
+      <Row className="d-flex justify-content-center">{friends.length > 0 ? createFriendCards : noFriendsMsg()}</Row>
     </Container>
   );
 }

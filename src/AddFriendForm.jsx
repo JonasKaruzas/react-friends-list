@@ -4,7 +4,9 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { useState } from 'react';
-
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import './addFriendForm.css';
 
 export const AddFriendForm = (props) => {
   
@@ -13,12 +15,18 @@ export const AddFriendForm = (props) => {
     props.editFormState :
     { firstName: "",
       lastName: "",
-      age: "",
       city: "",
     }
   );
 
+  const initialFormDateState = (
+    props.editFormState ?
+    new Date(props.editFormState.dateOfBirth) :
+     new Date());
+
+
   const [form, setForm] = useState({ ...initialFormState });
+  const [startDate, setStartDate] = useState(initialFormDateState);
 
   function formChangeHandler(e) {
     setForm({ ...form, [e.target.id]: e.target.value });
@@ -26,7 +34,7 @@ export const AddFriendForm = (props) => {
   
   function onSubmit(e) {
     e.preventDefault();
-    props.onSubmitHandler(form)
+    props.onSubmitHandler(form, startDate)
     props.closeModalHandler && props.closeModalHandler();
     setForm({ ...initialFormState });
   }
@@ -47,9 +55,7 @@ export const AddFriendForm = (props) => {
       </Row>
       <Row>
         <Col>
-      <FloatingLabel controlId="age" label="Age" className="mb-3">
-        <Form.Control type="number" placeholder="33" onChange={formChangeHandler} value={form.age} required/>
-      </FloatingLabel>
+          <DatePicker selected={startDate} onChange={(date:Date) => setStartDate(date)} />
         </Col>
         <Col>
       <FloatingLabel controlId="city" label="City" className="mb-3">

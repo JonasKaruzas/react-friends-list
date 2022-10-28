@@ -27,14 +27,14 @@ function App() {
     setEditFriendState(friends.filter((friend) => friend.id === id)[0]);
   }
 
-  function onSubmitHandler(formData) {
-    setFriends([...friends, { ...formData, id: new Date().getTime() }]);
+  function onSubmitHandler(formData, dateOfBirth) {
+    setFriends([...friends, { ...formData, id: new Date().getTime(), dateOfBirth: dateOfBirth.getTime() }]);
   }
 
-  function onEditSubmitHandler(editableFriendData) {
+  function onEditSubmitHandler(editableFriendData, dateOfBirth) {
     const indexOfEditableFriend = friends.findIndex((friend) => friend.id === editableFriendData.id);
     const newFriendsState = [...friends];
-    newFriendsState[indexOfEditableFriend] = editableFriendData;
+    newFriendsState[indexOfEditableFriend] = { ...editableFriendData, dateOfBirth };
 
     setFriends(newFriendsState);
   }
@@ -51,11 +51,11 @@ function App() {
     <Container>
       <Row className="d-flex justify-content-center">
         <Col className="my-3 col-12 col-sm-8">
-          <AddFriendForm btnText="Add friend" onSubmitHandler={(form) => onSubmitHandler(form)} />
+          <AddFriendForm btnText="Add friend" onSubmitHandler={(form, dateOfBirth) => onSubmitHandler(form, dateOfBirth)} />
         </Col>
       </Row>
 
-      <Row className="d-flex justify-content-center">{friends.length > 0 ? createFriendCards : noFriendsMsg()}</Row>
+      <Row className="d-flex justify-content-center">{friends.length > 0 ? createFriendCards : noFriendsMsg}</Row>
     </Container>
   );
 }

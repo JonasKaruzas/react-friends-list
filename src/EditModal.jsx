@@ -14,7 +14,7 @@ export function EditModal(props) {
 
   return (
     <>
-      <Button variant='outline-warning' size='sm' onClick={handleShow}>
+      <Button variant='warning' size='sm' onClick={handleShow}>
         Edit
       </Button>
 

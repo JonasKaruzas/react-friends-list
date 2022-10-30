@@ -1,5 +1,6 @@
 import { Friend } from "./Friend";
 import { AddFriendForm } from "./AddFriendForm";
+import { Filter } from "./Filter";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -14,6 +15,8 @@ function App() {
 
   const [friends, setFriends] = useState(getFriendListFromLocalstorage());
   const [editFriendState, setEditFriendState] = useState({});
+  const [searchValue, setSearchValue] = useState("");
+  const [ageArrangeValue, setAgeArrangeValue] = useState("Ascending");
 
   useEffect(() => {
     localStorage.setItem("FriendsList", JSON.stringify(friends));
@@ -39,7 +42,17 @@ function App() {
     setFriends(newFriendsState);
   }
 
-  const createFriendCards = friends.map((friend) => (
+  function searchedAndArrangedFriends() {
+    const filteredFriends = friends.filter((friend) => {
+      return friend.firstName.toLowerCase().indexOf(searchValue.toLowerCase()) > -1 || friend.lastName.toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
+    });
+
+    return ageArrangeValue === "Ascending"
+      ? filteredFriends.sort((a, b) => (new Date(a.dateOfBirth).getTime() < new Date(b.dateOfBirth).getTime() ? 1 : -1))
+      : filteredFriends.sort((a, b) => (new Date(a.dateOfBirth).getTime() > new Date(b.dateOfBirth).getTime() ? 1 : -1));
+  }
+
+  const createFriendCards = searchedAndArrangedFriends().map((friend) => (
     <Col key={friend.id} className="my-1 col-12 col-sm-6 col-lg-3">
       <Friend onEditSubmitHandler={onEditSubmitHandler} editFormState={editFriendState} data={friend} onDelete={deleteHandler} onEdit={editHandler} />
     </Col>
@@ -54,7 +67,11 @@ function App() {
           <AddFriendForm btnText="Add friend" onSubmitHandler={(form, dateOfBirth) => onSubmitHandler(form, dateOfBirth)} />
         </Col>
       </Row>
-
+      <Row className="d-flex justify-content-center">
+        <Col className="my-3 col-12 col-sm-8">
+          <Filter searchValue={searchValue} setSearchValue={setSearchValue} ageArrangeValue={ageArrangeValue} setAgeArrangeValue={setAgeArrangeValue} />
+        </Col>
+      </Row>
       <Row className="d-flex justify-content-center">{friends.length > 0 ? createFriendCards : noFriendsMsg}</Row>
     </Container>
   );

@@ -25,7 +25,7 @@ export const Friend = (props) => {
                   onEditSubmitHandler={props.onEditSubmitHandler} 
                   editFormState={props.editFormState} 
                   onEdit={() => props.onEdit(props.data.id)}/>
-                <Button onClick={() => props.onDelete(props.data.id)} variant='outline-danger' size='sm' className="float-end">X</Button></Col>
+                <Button onClick={() => props.onDelete(props.data.id)} variant='danger' size='sm' className="float-end">X</Button></Col>
             </Row>
           </Container>
           </Card.Header>
